@@ -43,6 +43,7 @@ GIF created with [LiceCap](http://www.cockos.com/licecap/).
 ## Notes
 
 Describe any challenges encountered while building the app.
+- Difficult to understand what exactly JSON does initially, but the more you use it, the more you understand the concept of implementing JSON into the app.
 
 ## License
 
