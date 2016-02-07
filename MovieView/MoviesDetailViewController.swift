@@ -9,39 +9,32 @@
 import UIKit
 import AFNetworking
 
-class MoviesDetailViewController: UIViewController, UITableViewDataSource, UITableViewDelegate {
+class MoviesDetailViewController: UIViewController {
 
-    @IBOutlet weak var movieCell: UITableViewCell!
-    @IBOutlet weak var moviePoster: UIImageView!
+    @IBOutlet weak var moviePosterView: UIImageView!
     @IBOutlet weak var movieTitle: UILabel!
-    @IBOutlet weak var movieOverview: UITextView!
+    @IBOutlet weak var movieOverview: UILabel!
+    @IBOutlet weak var scrollView: UIScrollView!
+    @IBOutlet weak var infoView: UIView!
 
-    var movietitle = ""
-    var movieoverview = ""
-    var movieposterurl = ""
+    var movie: NSDictionary!
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
         // Do any additional setup after loading the view.
-        print("second VC, title = \(movietitle)")
-        let fullImageURL = NSURL(string: movieposterurl)
-        moviePoster.setImageWithURL(fullImageURL!)
-        movieTitle.text! = movietitle
-        movieOverview.text! = movieoverview
+        self.title! = movie!["title"] as! String
+        print(movie)
+        let baseURL = "http://image.tmdb.org/t/p/w500"
+        let posterPath = movie!["poster_path"] as! String
+        let fullImageURL = NSURL(string: baseURL + posterPath)
+        movieTitle.text! = movie!["title"] as! String
+        movieOverview.text! = movie!["overview"] as! String
+        moviePosterView.setImageWithURL(fullImageURL!)
+//        moviePosterView.alpha = 0
+        scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: infoView.frame.origin.y + infoView.frame.size.height)
+        movieOverview.sizeToFit()
     }
     
-    func tableView(tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        
-        return 1
-    }
-    
-    func tableView(tableView: UITableView, cellForRowAtIndexPath indexPath: NSIndexPath) -> UITableViewCell {
-        
-        let cell = movieCell
-        return cell
-    }
-
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
