@@ -23,6 +23,7 @@ class MoviesDetailViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.title! = movie!["title"] as! String
+        moviePosterView.alpha = 0
         print(movie)
         let baseURL = "http://image.tmdb.org/t/p/w500"
         let posterPath = movie!["poster_path"] as! String
@@ -30,9 +31,17 @@ class MoviesDetailViewController: UIViewController {
         movieTitle.text! = movie!["title"] as! String
         movieOverview.text! = movie!["overview"] as! String
         moviePosterView.setImageWithURL(fullImageURL!)
-//        moviePosterView.alpha = 0
+        fadeInPoster()
         scrollView.contentSize = CGSize(width: scrollView.frame.size.width, height: infoView.frame.origin.y + infoView.frame.size.height)
         movieOverview.sizeToFit()
+    }
+    
+    func fadeInPoster(duration duration: NSTimeInterval = 2.0) {
+        
+            UIView.animateWithDuration(duration, animations: {
+                
+                self.moviePosterView.alpha = 1
+            })
     }
     
     override func didReceiveMemoryWarning() {
